@@ -1,7 +1,12 @@
-require "nytimes-events/version"
+require 'rest_client'
+require 'json'
+
+require 'nytimes-events/base'
+require 'nytimes-events/events'
+require 'nytimes-events/version'
 
 module Nytimes
   module Events
-    # Your code goes here...
+    class Error < StandardError; end
   end
 end
