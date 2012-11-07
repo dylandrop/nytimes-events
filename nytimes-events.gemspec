@@ -6,7 +6,9 @@ Gem::Specification.new do |gem|
   gem.email         = ["dylandrop@gmail.com"]
   gem.description   = %q{NYTimes Events Ruby API}
   gem.summary       = %q{A Ruby wrapper for the NYTimes Events API.}
-  gem.homepage      = ""
+  gem.homepage      = "https://github.com/dylandrop/nytimes-events"
+
+  gem.add_development_dependency "rspec"
 
   gem.files         = `git ls-files`.split($\)
   gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
