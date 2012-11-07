@@ -4,7 +4,7 @@ module Nytimes
 
       class << self
         def find(params = {})
-          response = RestClient.get(API_URL, params)
+          response = RestClient.get(Nytimes::Events::Base.API_URL, params)
           JSON.parse(response)
         end
       end
