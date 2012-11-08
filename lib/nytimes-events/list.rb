@@ -7,6 +7,7 @@ module Nytimes
         super(api_key)
         @batch_size = batch_size
         @current_offset = 0
+        @results = 0
         @previous_params = Hash.new
       end
 
@@ -21,7 +22,9 @@ module Nytimes
         when 403
           raise RestClient::Exception, "Access forbidden by NYTimes API. Perhaps the API key isn't working?"
         when 200
-          JSON.parse(response)
+          json = JSON.parse(response)
+          @results = json['num_results'].to_i
+          json
         end
       end
 
@@ -30,7 +33,7 @@ module Nytimes
       end
 
       def next_page
-        @current_offset += @batch_size
+        @current_offset += @batch_size unless @current_offset + @batch_size > @results
         find(@previous_params)
       end
       alias :next :next_page
