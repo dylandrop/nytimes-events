@@ -6,11 +6,13 @@ module Nytimes
       def initialize(api_key, batch_size = 20)
         super(api_key)
         @batch_size = batch_size
-        @current_offset = nil
+        @current_offset = 0
+        @previous_params = Hash.new
       end
 
       def find(params = {})
-        params.merge({'limit' => @batch_size})
+        @previous_params = params
+        params.merge({'limit' => @batch_size, 'offset' => @current_offset})
         response = RestClient.get(api_url(params))
         case response.net_http_res
         when 403
@@ -22,6 +24,11 @@ module Nytimes
 
       def batch_size=(amount)
         @batch_size = amount
+      end
+
+      def next_page
+        @current_offset += @batch_size
+        find(@previous_params)
       end
     end
   end

@@ -18,4 +18,12 @@ describe Nytimes::Events::List do
     listing.batch_size = 40
     listing.batch_size.should == 40
   end
+
+  it "fetches the next 'batch' number of items when next_page is requested" do
+    listing = Nytimes::Events::List.new("XXXX")
+    RestClient.stub(:get).and_return(RestClient::Response.create("{\"thing1\":\"thing2\"}", 200, {}))
+    listing.find('foo' => 'bar')
+    listing.next_page
+    listing.instance_variable_get(:@current_offset).should == listing.instance_variable_get(:@batch_size)
+  end
 end
