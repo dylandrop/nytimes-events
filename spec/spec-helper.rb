@@ -1,3 +1,3 @@
-$:.unshift File.expand_path("../..", __FILE__)
+require File.dirname(__FILE__) + '/../lib/nytimes-events'
 
 require 'nytimes-events'
