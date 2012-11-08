@@ -1,7 +1,13 @@
 module Nytimes
   module Events
     class List < Base
+      def initialize(api_key, batch_size = 20)
+        super(api_key)
+        @batch_size = batch_size
+      end
+
       def find(params = {})
+        params.merge({'limit' => @batch_size})
         response = RestClient.get(api_url(params))
         case response.net_http_res
         when 403
