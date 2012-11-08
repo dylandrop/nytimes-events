@@ -26,6 +26,7 @@ A simple usage example, as of right now:
 `search` takes a hash of parameters which directly correspond to the parameters found on the NYTimes' Event Listings API page. You must initialize any object with your API key which can be obtained from the NYTimes API website.
 
 **IMPORTANT**
+
 `nytimes-event` is based off of the linked-list data structure. That is, `Nytimes::Event::List` actually retrieves `batch_size` number of events, and you can retrieve the next `batch_size` events or the previous `batch_size` events.
 
 `batch_size` by default is 20.
