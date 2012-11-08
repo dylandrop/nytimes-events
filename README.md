@@ -1,6 +1,6 @@
 # Nytimes::Events
 
-A Ruby wrapper for the NYTimes Events API.
+A Ruby wrapper for the NYTimes Event Listings API.
 
 ## Installation
 
@@ -18,7 +18,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+A simple usage example, as of right now:
+
+    listing = Nytimes::Event::Listing.new(MY_API_KEY)
+    listing.search('query' => 'food')
+
+`search` takes a hash of parameters which directly correspond to the parameters found on the NYTimes' Event Listings API page. You must initialize any object with your API key which can be obtained from the NYTimes API website.
 
 ## Contributing
 
