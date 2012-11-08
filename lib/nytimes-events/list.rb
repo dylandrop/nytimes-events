@@ -14,7 +14,10 @@ module Nytimes
         @previous_params = params
         params.merge({'limit' => @batch_size, 'offset' => @current_offset})
         response = RestClient.get(api_url(params))
-        case response.net_http_res
+
+        response_code = response.net_http_res.instance_of?(Fixnum) ? response.net_http_res : response.code
+
+        case response_code
         when 403
           raise RestClient::Exception, "Access forbidden by NYTimes API. Perhaps the API key isn't working?"
         when 200
