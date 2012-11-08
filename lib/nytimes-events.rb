@@ -2,7 +2,7 @@ require 'rest_client'
 require 'json'
 
 require 'nytimes-events/base'
-require 'nytimes-events/events'
+require 'nytimes-events/listing'
 require 'nytimes-events/version'
 
 module Nytimes
