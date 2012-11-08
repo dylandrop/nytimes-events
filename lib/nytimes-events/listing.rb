@@ -3,7 +3,12 @@ module Nytimes
     class Listing < Base
       def find(params = {})
         response = RestClient.get(api_url(params))
-        JSON.parse(response)
+        case response.net_http_res
+        when 403
+          raise RestClient::Exception, "Access forbidden by NYTimes API. Perhaps the API key isn't working?"
+        when 200
+          JSON.parse(response)
+        end
       end
     end
   end
