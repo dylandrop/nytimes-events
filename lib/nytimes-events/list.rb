@@ -12,9 +12,10 @@ module Nytimes
       end
 
       def find(params = {})
+        to_head if previous_params_differ_from(params)
+
         @previous_params = params
-        params.merge({'limit' => @batch_size, 'offset' => @current_offset})
-        response = RestClient.get(api_url(params))
+        response = RestClient.get(api_url(params.merge({'limit' => @batch_size, 'offset' => @current_offset})))
 
         response_code = response.net_http_res.instance_of?(Fixnum) ? response.net_http_res : response.code
 
@@ -43,6 +44,17 @@ module Nytimes
         find(@previous_params)
       end
       alias :previous :prev_page
+
+      def to_head
+        @current_offset = 0
+      end
+
+      private
+
+      def previous_params_differ_from(params)
+        params = params.delete_if {|key, value| key == 'offset' || key == 'limit' }
+        params != @previous_params
+      end
     end
   end
 end

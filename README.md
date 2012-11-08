@@ -41,6 +41,10 @@ For example:
     #=> previous retrieves the previous 10 events
     listing.prev
 
+Also, you can reset to head (such that the results are those which would appear if you hadn't called next or previous at all) by calling `to_head`:
+
+    listing.to_head
+
 ## Contributing
 
 1. Fork it
