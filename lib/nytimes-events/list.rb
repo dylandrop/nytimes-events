@@ -1,6 +1,6 @@
 module Nytimes
   module Events
-    class Listing < Base
+    class List < Base
       def find(params = {})
         response = RestClient.get(api_url(params))
         case response.net_http_res
