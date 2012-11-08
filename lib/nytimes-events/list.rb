@@ -36,7 +36,7 @@ module Nytimes
       alias :next :next_page
 
       def prev_page
-        @current_offset -= @batch_size
+        @current_offset -= @batch_size unless @batch_size > @current_offset
         find(@previous_params)
       end
       alias :previous :prev_page
