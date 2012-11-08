@@ -26,4 +26,13 @@ describe Nytimes::Events::List do
     listing.next_page
     listing.instance_variable_get(:@current_offset).should == listing.instance_variable_get(:@batch_size)
   end
+
+  it "fetches the last 'batch' number of items when next_page is requested" do
+    listing = Nytimes::Events::List.new("XXXX")
+    RestClient.stub(:get).and_return(RestClient::Response.create("{\"thing1\":\"thing2\"}", 200, {}))
+    listing.find('foo' => 'bar')
+    listing.instance_variable_set(:@current_offset, 20)
+    listing.prev_page
+    listing.instance_variable_get(:@current_offset).should == 0
+  end
 end
