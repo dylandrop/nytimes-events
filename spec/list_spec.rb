@@ -53,4 +53,13 @@ describe Nytimes::Events::List do
     listing.next_page
     listing.instance_variable_get(:@current_offset).should == 0
   end
+
+  it "should reset to head if new query is performed" do
+    listing = Nytimes::Events::List.new("XXXX")
+    RestClient.stub(:get).and_return(RestClient::Response.create("{\"num_results\":\"6\"}", 200, {}))
+    listing.find('foo' => 'bar')
+    listing.instance_variable_set(:@current_offset, 40)
+    listing.find('foo' => 'qwerty')
+    listing.instance_variable_get(:@current_offset).should == 0
+  end
 end
