@@ -36,7 +36,7 @@ module Nytimes
         @current_offset -= @batch_size
         find(@previous_params)
       end
-      alias :next :next_page
+      alias :previous :prev_page
     end
   end
 end
