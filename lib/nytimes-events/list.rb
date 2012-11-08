@@ -1,9 +1,12 @@
 module Nytimes
   module Events
     class List < Base
+      attr_reader :batch_size
+
       def initialize(api_key, batch_size = 20)
         super(api_key)
         @batch_size = batch_size
+        @current_offset = nil
       end
 
       def find(params = {})
@@ -15,6 +18,10 @@ module Nytimes
         when 200
           JSON.parse(response)
         end
+      end
+
+      def batch_size=(amount)
+        @batch_size = amount
       end
     end
   end

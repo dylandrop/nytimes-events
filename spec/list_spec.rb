@@ -12,4 +12,10 @@ describe Nytimes::Events::List do
     RestClient.stub(:get).and_return(RestClient::Response.create("{\"thing1\":\"thing2\"}", 200, {}))
     listing.find('foo' => 'bar').should == {'thing1' => 'thing2'}
   end
+
+  it "allows you to set and retrieve the batch size" do
+    listing = Nytimes::Events::List.new("XXXX")
+    listing.batch_size = 40
+    listing.batch_size.should == 40
+  end
 end
