@@ -21,7 +21,7 @@ module Nytimes
       end
 
       def api_url(params)
-        prmstr = params.collect { |k, v| "#{k.to_s}=#{v.to_s}" }.join('&') + "&api-key=" + api_key
+        prmstr = params.collect { |k, v| "#{k.to_s}=#{v.to_s.gsub(' ','+')}" }.join('&') + "&api-key=" + api_key
         API_URL + "?" + prmstr
       end
     end
