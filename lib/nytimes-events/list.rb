@@ -15,16 +15,14 @@ module Nytimes
         to_head if previous_params_differ_from(params)
 
         @previous_params = params
-        response = RestClient.get(api_url(params.merge({'limit' => @batch_size, 'offset' => @current_offset})))
+        response = RestClient.get(api_url_for(params))
 
-        response_code = response.net_http_res.instance_of?(Fixnum) ? response.net_http_res : response.code
-
-        case response_code
+        case response_code_for response
         when 403
           raise RestClient::Exception, "Access forbidden by NYTimes API. Perhaps the API key isn't working?"
         when 200
           json = JSON.parse(response)
-          @results = json['num_results'].to_i
+          set_results_returned(json)
           json
         end
       end
@@ -54,6 +52,18 @@ module Nytimes
       def previous_params_differ_from(params)
         params = params.delete_if {|key, value| key == 'offset' || key == 'limit' }
         params != @previous_params
+      end
+
+      def response_code_for response
+        response.net_http_res.instance_of?(Fixnum) ? response.net_http_res : response.code
+      end
+
+      def api_url_for params
+        api_url(params.merge({'limit' => @batch_size, 'offset' => @current_offset}))
+      end
+
+      def set_results_returned incoming_json
+        @results = incoming_json['num_results'].to_i
       end
     end
   end
