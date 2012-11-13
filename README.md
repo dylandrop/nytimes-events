@@ -2,6 +2,8 @@
 
 A Ruby wrapper for the NYTimes Event Listings API.
 
+Currently v0.0.1. As of right now, you can supply any legal parameters and receive the response back from NYTimes as a JSON hash. Next to come: faceted search, spatial search, and more robust error handling. Possible other features include an option for XML response. Also, if there are any other features that people may want, feel free to contribute or let me know. 
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -24,6 +26,10 @@ A simple usage example, as of right now:
     listing.find('query' => 'food')
 
 `search` takes a hash of parameters which directly correspond to the parameters found on the NYTimes' Event Listings API page. You must initialize any object with your API key which can be obtained from the NYTimes API website.
+
+Query parameters can be found here: http://developer.nytimes.com/docs/read/events_api
+
+You will receive back a JSON hash of events.
 
 **IMPORTANT**
 
